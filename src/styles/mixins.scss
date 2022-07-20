@@ -1,0 +1,73 @@
+@import 'variables';
+
+// Adaptive mixins
+@mixin max-width($resolution) {
+  @media screen and (max-width: #{$resolution}px) {
+    @content;
+  }
+}
+
+@mixin min-width($resolution) {
+  @media screen and (min-width: #{$resolution}px) {
+    @content;
+  }
+}
+
+@mixin max-height($resolution) {
+  @media screen and (max-height: #{$resolution}px) {
+    @content;
+  }
+}
+
+@mixin min-height($resolution) {
+  @media screen and (min-height: #{$resolution}px) {
+    @content;
+  }
+}
+
+// Сильное уменьшение шрифта с уменьшением ширины экрана (для заголовков и подзаголовков)
+@mixin font-strong-reduction($initial-font-size, $initial-line-height) {
+  font-size: $initial-font-size;
+  line-height: $initial-line-height;
+
+  @include max-width(1000) {
+    font-size: $initial-font-size * 0.85;
+    line-height: $initial-line-height * 0.85;
+  }
+
+  @include max-width(480) {
+    font-size: $initial-font-size * 0.65;
+    line-height: $initial-line-height * 0.65;
+  }
+}
+
+// Слабое уменьшение шрифта с уменьшением ширины экрана (для более мелкого текста)
+@mixin font-weak-reduction($initial-font-size, $initial-line-height) {
+  font-size: $initial-font-size;
+  line-height: $initial-line-height;
+
+  @include max-width(1000) {
+    font-size: $initial-font-size * 0.9;
+    line-height: $initial-line-height * 0.9;
+  }
+
+  @include max-width(480) {
+    font-size: $initial-font-size * 0.85;
+    line-height: $initial-line-height * 0.85;
+  }
+}
+
+// Цвета шрифтов
+@mixin fonts-colors() {
+  &--secodary {
+    color: $secondary;
+  }
+
+  &--accent {
+    color: $accent;
+  }
+
+  &--white {
+    color: $white;
+  }
+}

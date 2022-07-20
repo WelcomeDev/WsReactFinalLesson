@@ -1,0 +1,40 @@
+@import 'fonts';
+@import 'mixins';
+@import 'reset';
+@import 'variables';
+
+.app {
+  &__title {
+    text-align: center;
+  }
+}
+
+main {
+  padding: 20px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+
+  @include max-width(600) {
+    padding: 0 20px;
+  }
+}
+
+.primary-button {
+  padding: 10px;
+  background-color: $accent;
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  cursor:pointer;
+  &:disabled {
+    background-color: $secondary;
+  }
+
+  &:not([disabled]):hover {
+    background-color: $accent-hover;
+  }
+}

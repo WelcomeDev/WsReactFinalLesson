@@ -1,0 +1,39 @@
+@import 'variables';
+@import 'mixins';
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: $primary;
+}
+
+.title-1 {
+  @include font-strong-reduction(64px, 80px);
+  @include fonts-colors;
+}
+
+.title-2 {
+  @include font-strong-reduction(54px, 60px);
+  @include fonts-colors;
+}
+
+.subtitle-1 {
+  @include font-strong-reduction(32px, 40px);
+  @include fonts-colors;
+}
+
+.subtitle-2 {
+  @include font-strong-reduction(28px, 30px);
+  @include fonts-colors;
+}
+
+.body-1 {
+  @include font-weak-reduction(20px, 24px);
+  @include fonts-colors;
+}
+
+.body-2 {
+  @include font-strong-reduction(16px, 18px);
+  @include fonts-colors;
+}
