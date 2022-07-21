@@ -5,16 +5,32 @@ import { pageMy, remove } from 'requests/movieActions';
 import { MovieList } from 'model/movieList';
 import { useNavigate } from 'react-router-dom';
 
-const size: number = 10;
-const page = 0;
+const pageSize: number = 10;
 
 export function Movies() {
     const [moviesList, setMoviesList] = useState<MovieList[]>([]);
     const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+
+    function onGoLeft() {
+        if (currentPage === 1) return;
+        setCurrentPage(currentPage - 1);
+    }
+
+    function onGoRight() {
+        if (currentPage > totalPages - 1) return;
+        setCurrentPage(currentPage + 1);
+    }
 
     useEffect(() => {
-        pageMy(page, size).then(movies => setMoviesList(movies.items));
-    }, []);
+        pageMy(currentPage - 1, pageSize)
+            .then(movies => {
+                setMoviesList(movies.items);
+                setTotalPages(Math.ceil(movies.totalCount / pageSize));
+            });
+    }, [currentPage]);
 
     function deleteNote(id: string) {
         remove(id)
@@ -73,6 +89,11 @@ export function Movies() {
                     ))
                 }
             </table>
+            <div className={'movies-list__page-switcher'}>
+                <button onClick={() => onGoLeft()}>left</button>
+                <p>{`${currentPage}/${totalPages}`}</p>
+                <button onClick={() => onGoRight()}>right</button>
+            </div>
         </div>
     );
 }
