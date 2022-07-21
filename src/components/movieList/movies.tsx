@@ -3,12 +3,14 @@ import deleteIcon from '../../images/close.svg';
 import './movies.scss';
 import { pageMy, remove } from 'requests/movieActions';
 import { MovieList } from 'model/movieList';
+import { useNavigate } from 'react-router-dom';
 
 const size: number = 10;
 const page = 0;
 
 export function Movies() {
     const [moviesList, setMoviesList] = useState<MovieList[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         pageMy(page, size).then(movies => setMoviesList(movies.items));
@@ -46,6 +48,7 @@ export function Movies() {
                         <tr
                             key={movie.id}
                             className={'table-movies__item movies-item'}
+                            onDoubleClick={() => navigate(`update/${movie.id}`)}
                         >
                             <td
                                 className={'movies-item__td item-td'}

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { MovieList } from 'model/movieList';
 import { CreateMovieDto } from 'interfaces/createMovieDto';
 import { Movie } from 'model/movie';
+import { UpdateMovieDto } from 'interfaces/updateMovieDto';
 
 // вытащи отдельно
 export interface CollectionDto<T> {
@@ -33,7 +34,7 @@ export function create(dto: CreateMovieDto) {
               .then(res => res.data);
 }
 
-export function update(id: string, dto: CreateMovieDto) {
+export function update(id: string, dto: UpdateMovieDto) {
     return api.post<Movie>(`movies/${id}/update`, dto)
               .then(res => res.data);
 }

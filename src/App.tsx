@@ -5,6 +5,7 @@ import { Movies } from './components/movieList/movies';
 import { Footer } from 'components/footer/footer';
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import { CreateMovieModal } from 'components/createMovies/createMovieModal';
+import { UpdateMovieModal } from 'components/createMovies/UpdateMovieModal';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
                     <Routes>
                         <Route path={'/home'} element={<HomePage/>}>
                             <Route path={'create'} element={<CreateMovieModal/>}/>
+                            <Route path={'update/:id'} element={<UpdateMovieModal/>}/>
                         </Route>
                         <Route index element={<Navigate to={'home'}/>}/>
                     </Routes>
