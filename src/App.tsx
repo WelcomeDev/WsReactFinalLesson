@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import movies from './MOVIES.json';
 import { Header } from './components/header/header';
 import './styles/app.scss';
-import { Movie } from './interfaces/movie';
+import { Movie } from './model/movie';
 import { Movies } from './components/movieList/movies';
 import { Form } from './components/createMovies/form';
 //import { getListPage } from './requests/getListPage';
@@ -16,11 +16,14 @@ interface AppState {
 
 class App extends Component<{}, AppState> {    
     
-    state = {
-        //movies: [],
-        showForm: false,
-        valueButton: 'Add'
-    };
+   constructor(props:{}) {
+       super(props);
+       this.state = {
+           //movies: [],
+           showForm: false,
+           valueButton: 'Add'
+       };
+   }
     onClick = () => {
         if (this.state.showForm == false) {
             this.setState({ showForm: true });

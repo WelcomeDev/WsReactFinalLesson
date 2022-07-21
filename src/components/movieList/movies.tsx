@@ -1,57 +1,29 @@
-import React, { Component, useState } from 'react';
-import axios from 'axios';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import deleteIcon from '../../images/close.svg';
-import { Movie } from '../../interfaces/movie';
 import './movies.scss';
-import { getListMovies } from '../../requests/getListMovies'
+import { pageMy, remove } from 'requests/movieActions';
+import { MovieList } from 'model/movieList';
 
-interface CreateMovieParams {
-    //movies: Movie[];
-    //deleteNote(index: number): void;
-}
+const size: number = 10;
+const page = 0;
 
-//function getListPage(lenghtList: number, countDisplayElements: number) {
-//    let listPage = [];
-//    const countPage = Math.ceil(lenghtList / countDisplayElements)
-//    for (let i = 1; i <= countPage; i++) {
-//        listPage.push(i);
-//    }
-//    return listPage
-//}
+export function Movies() {
+    const [moviesList, setMoviesList] = useState<MovieList[]>([]);
 
-export const Movies = (props: CreateMovieParams) => {
-    const [moviesList, setMoviesList] = useState<Movie[]>([]);
-    //const [lenghtListMovies, setLenghtListMovies] = useState<number>(0)
-    //const [page, setPage] = useState<number>(0);
-    const size: number = 10;
-    const page = 0;
-    //const [pageList, setPageList] = useState<number[]>([]);
-    
-    setMoviesList(getListMovies(page, size))
-    //let movies: Movie[];
-    //const lenghtComment = 200;
-    ////useEffect(() => {
-    ////    axios.get(`http://students.dev.thewhite.ru/api/movies/page-my?page=${page}&size=${size}`, { headers })
-    ////        .then(res => {
-    ////            const movies = res.data.items;
-    ////            setMoviesList(movies);
+    useEffect(() => {
+        pageMy(page, size).then(movies => setMoviesList(movies.items));
+    }, []);
 
-    ////            const lenghtListMovies = res.data.totalCount;
-    ////            setLenghtListMovies(lenghtListMovies);
-    ////            //setPageList(getCountPage(lenghtListMovies, size));
-    ////            //console.log(pageList)
-    ////        }),
-    ////        []
-    ////})
-    //let listPage = [];
-    //const countPage = Math.ceil(lenghtListMovies / size)
-    //for (let i = 1; i <= countPage; i++) {
-    //    listPage.push(i);
-    //}
-    //setPageList(listPage)
-    //setPageList(getListPage(lenghtListMovies, size))
-   // console.log(getListPage(lenghtListMovies, size))
+    function deleteNote(id: string) {
+        remove(id)
+            .then(x => {
+                const copy = [...moviesList];
+                const indexToRemove = copy.findIndex(x => x.id === id);
+                copy.splice(indexToRemove, 1);
+                setMoviesList(copy);
+            });
+    }
+
     return (
         <div>
             <table
@@ -60,19 +32,19 @@ export const Movies = (props: CreateMovieParams) => {
                 <thead
                     className={'table-movies__thead'}
                 >
-                    <tr>
-                        <th>Title</th>
-                        <th>Rate</th>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>Title</th>
+                    <th>Rate</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
                 </thead>
                 {
-                    moviesList.map((movie: Movie, index: number) => (
-                    
+                    moviesList.map((movie: MovieList) => (
+                        // умер увидев столько стилей. В данном случае можно по тегу общаться в css
                         <tr
-                            key={index}
+                            key={movie.id}
                             className={'table-movies__item movies-item'}
                         >
                             <td
@@ -86,22 +58,18 @@ export const Movies = (props: CreateMovieParams) => {
                             >{movie.date}</td>
                             <td
                                 className={'movies-item__td item-td'}
-                            >{movie.comment }</td>
-                            <td
-                                className={'movies-item__td item-td'}
                             >
                                 <button
-                                    onClick={() => console.log(movie)}
-                                   // onClick={() => props.deleteNote(index)}
+                                    onClick={() => deleteNote(movie.id)}
                                 >
-                                    <img className={'item-td__img'} src={deleteIcon} alt={'delete'} />
+                                    <img className={'item-td__img'} src={deleteIcon} alt={'delete'}/>
                                 </button>
                             </td>
                         </tr>
-                    
+
                     ))
                 }
             </table>
         </div>
     );
-};
+}
