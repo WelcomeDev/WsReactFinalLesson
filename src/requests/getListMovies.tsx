@@ -11,8 +11,8 @@ export function getListMovies(page: number, size: number) {
             'Authorization': '36d6c5ae-df3f-444c-afcd-425c611f096e',
             'Content-Type': 'application/json'
         };
-        //const article = { page: page, size: size };
-        axios.get(`http://students.dev.thewhite.ru/api/movies/page-my?page=${page}&size=${size}`, { headers })
+        const params = { page: page, size: size };
+        axios.get(`http://students.dev.thewhite.ru/api/movies/page-my`, { headers, params })
             .then(res => {
                 let movies = res.data.items;
                 setMoviesList(movies)
