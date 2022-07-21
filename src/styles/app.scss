@@ -4,12 +4,17 @@
 @import 'variables';
 
 .app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   &__title {
     text-align: center;
   }
 }
 
 main {
+  flex-grow: 1;
   padding: 20px 0;
 }
 
@@ -23,13 +28,18 @@ main {
   }
 }
 
+#root {
+  position: relative;
+}
+
 .primary-button {
   padding: 10px;
   background-color: $accent;
   color: $white;
   border: none;
   border-radius: 8px;
-  cursor:pointer;
+  cursor: pointer;
+
   &:disabled {
     background-color: $secondary;
   }
