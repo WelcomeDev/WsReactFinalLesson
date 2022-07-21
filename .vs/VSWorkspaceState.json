@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\createMovies",
+    "\\src\\components\\movieList",
+    "\\src\\interfaces"
+  ],
+  "SelectedNode": "\\.eslintrc.json",
+  "PreviewInSolutionExplorer": false
+}
